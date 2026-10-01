@@ -54,7 +54,7 @@ void cashier()
     	
     	cout << "\n\nThank You for Shopping at Serendipity!\n";
     	
-    	cout << "\nWould You Want Another Transcation?";
+    	cout << "\nWould You Want Another Transaction?";
     	cout << "\nY/N: ";
     	cin >> repeat_choice;
     	
