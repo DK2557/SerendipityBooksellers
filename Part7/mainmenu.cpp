@@ -3,6 +3,7 @@
 #include "reports.h"
 #include "bookinfo.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 const int SIZE = 20;
@@ -18,27 +19,26 @@ double retail[SIZE];
 
 int main()
 {
-    int main_choice;
+    int selection = 0;
 
-    cout << "Serendipity Booksellers\n";
-    cout << "\tMain Menu\n";
-    
-    cout << "\n1. Cashier Module\n";
-    cout << "2. Inventory Database Module\n";
-    cout << "3. Report Module\n";
-    cout << "4. Exit\n";
-
-    cout << "\nEnter Your Choice: ";
-    cin >> main_choice;
-
-    while(main_choice < 1 || main_choice > 4)
+    do
     {
-        cout << "\nPlease enter a number in the range 1 - 4\n";
+        cout << "Serendipity Booksellers\n";
+        cout << "\tMain Menu\n";
+        cout << "\n1. Cashier Module\n";
+        cout << "2. Inventory Database Module\n";
+        cout << "3. Report Module\n";
+        cout << "4. Exit\n";
         cout << "\nEnter Your Choice: ";
-        cin >> main_choice;
-    }
-    
-    switch(main_choice)
+        cin >> selection;
+
+        if(selection < 1 || selection > 4)
+        {
+            cout << "\nPlease enter a number in the range 1 - 4\n";
+        }
+    } while(selection < 1 || selection > 4);
+
+    switch(selection)
     {
         case 1:
             cin.ignore();
@@ -55,5 +55,5 @@ int main()
             break;
     }
 
-	return 0;
+    return 0;
 }
