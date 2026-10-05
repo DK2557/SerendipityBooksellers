@@ -55,8 +55,6 @@ void reports()
             flag = false; 
             break;
     }
-
-    cout << "You selected item " << reports_choice;
 }
 }
 
