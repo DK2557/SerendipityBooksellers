@@ -24,10 +24,14 @@ int main()
         }
         switch (number)
         {
-            case 1: cin.ignore(); cashier(); break;
-            case 2: invMenu(); break;
-            case 3: reports(); break;
-            case 4: cout << "You selected item 4.\n"; break;
+            case 1: cin.ignore(); cashier(); 
+            break;
+            case 2: invMenu(); 
+            break;
+            case 3: reports(); 
+            break;
+            case 4: cout << "You selected item 4.\n"; 
+            break;
         }
     } while (number != 4);
     return 0;

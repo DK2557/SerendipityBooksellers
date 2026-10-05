@@ -7,7 +7,8 @@ using namespace std;
 void invMenu()
 {
     int menu_choice;
-    
+    bool flag = true; 
+    while(flag) {
 	cout << "Serendipity Booksellers\n";
 	cout << "  Inventory Database\n";
 	
@@ -43,8 +44,10 @@ void invMenu()
             break;
         case 5:
             cout << "\nReturning to Main Menu\n";
+            flag = false; 
             break;
     }
+}
 }
 
 void lookUpBook()

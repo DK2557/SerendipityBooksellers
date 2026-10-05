@@ -7,7 +7,8 @@ using namespace std;
 void reports()
 {
     int reports_choice;
-
+    bool flag = true; 
+    while(flag) {
     cout << "Serendipity Booksellers\n";
     cout << "\tReports\n";
     
@@ -51,10 +52,12 @@ void reports()
             break;
         case 7:
             cout << "\nReturning to Main Menu\n";
+            flag = false; 
             break;
     }
 
     cout << "You selected item " << reports_choice;
+}
 }
 
 void repListing()

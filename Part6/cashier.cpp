@@ -24,7 +24,8 @@ void cashier()
     	cin >> isbn;
     	
     	cout << "Enter the Title: ";
-    	cin >> title;
+    	cin.ignore();
+    	getline(cin, title);
     
     	cout << "Enter the Price: ";
     	cin >> price;
@@ -45,7 +46,8 @@ void cashier()
     	cout << quantity;
     	cout << "\t" << isbn;
     	cout << "\t" << title;
-    	cout << "\t\t$" << price;
+		//cout << fixed << setprecision(2) << setw(6);
+		cout << fixed << setprecision(2) << setw(6) << "\t\t$" << price;
     	cout << "\t$" << subtotal;
     	
     	cout << "\n\n\tSubtotal" << "\t\t\t$" << subtotal;
