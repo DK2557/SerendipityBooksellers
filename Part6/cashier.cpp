@@ -47,7 +47,7 @@ void cashier()
     	cout << "\t" << isbn;
     	cout << "\t" << title;
 		//cout << fixed << setprecision(2) << setw(6);
-		cout << fixed << setprecision(2) << setw(6) << "\t\t$" << price;
+		cout << fixed << setprecision(2) << "\t\t$" << setw(6) << price;
     	cout << "\t$" << subtotal;
     	
     	cout << "\n\n\tSubtotal" << "\t\t\t$" << subtotal;

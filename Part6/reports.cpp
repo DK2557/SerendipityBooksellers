@@ -11,7 +11,8 @@ void reports()
     while(flag) {
     cout << "Serendipity Booksellers\n";
     cout << "\tReports\n";
-    
+
+
     cout << "\n1. Inventory Listing\n";
     cout << "2. Inventory Wholesale Value\n";
     cout << "3. Inventory Retail Value\n";
