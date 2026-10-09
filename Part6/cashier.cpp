@@ -21,7 +21,7 @@ void cashier()
     	cin >> quantity;
     	
     	cout << "Enter the ISBN Number: ";
-    	cin >> isbn;
+    	cin >> isbn; 
     	
     	cout << "Enter the Title: ";
     	cin.ignore();

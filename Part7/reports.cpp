@@ -5,6 +5,7 @@ using namespace std;
 void reports()
 {
     int reports_choice;
+    while (true) {
 
     cout << "Serendipity Booksellers\n";
     cout << "\tReports\n";
@@ -49,10 +50,9 @@ void reports()
             break;
         case 7:
             cout << "\nReturning to Main Menu\n";
-            break;
+            return;
     }
-
-    cout << "You selected item " << reports_choice;
+    }
 }
 
 void repListing()

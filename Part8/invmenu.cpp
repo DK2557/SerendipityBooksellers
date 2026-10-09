@@ -43,6 +43,7 @@ int findBook(const string &title)
 void invMenu()
 {
     int menuChoice = 0;
+    while (true) {
 
     do
     {
@@ -80,7 +81,8 @@ void invMenu()
             break;
         case 5:
             cout << "\nReturning to Main Menu\n";
-            break;
+            return;
+    }
     }
 }
 

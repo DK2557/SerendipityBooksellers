@@ -5,6 +5,7 @@ using namespace std;
 void invMenu()
 {
     int menu_choice;
+    while (true) {
     
 	cout << "Serendipity Booksellers\n";
 	cout << "  Inventory Database\n";
@@ -41,7 +42,8 @@ void invMenu()
             break;
         case 5:
             cout << "\nReturning to Main Menu\n";
-            break;
+            return;
+    }
     }
 }
 
