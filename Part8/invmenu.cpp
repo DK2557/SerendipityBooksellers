@@ -16,29 +16,7 @@ extern int qtyOnHand[SIZE];
 extern double wholesale[SIZE];
 extern double retail[SIZE];
 
-void clearInput()
-{
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
 
-void readText(string prompt, string &value)
-{
-    cout << prompt;
-    getline(cin, value);
-}
-
-int findBook(const string &title)
-{
-    for(int index = 0; index < SIZE; index++)
-    {
-        if(bookTitle[index] == title)
-        {
-            return index;
-        }
-    }
-    return -1;
-}
 
 void invMenu()
 {
@@ -58,12 +36,10 @@ void invMenu()
 
         if(!(cin >> menuChoice) || menuChoice < 1 || menuChoice > 5)
         {
-            clearInput();
+            
             cout << "\nPlease enter a number in the range 1 - 5\n";
         }
     } while(menuChoice < 1 || menuChoice > 5 || cin.fail());
-
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     switch(menuChoice)
     {
@@ -88,185 +64,205 @@ void invMenu()
 
 void lookUpBook()
 {
-    string title;
-    cout << "You selected Look Up a Book\n\n";
-    readText("Enter the Title of the Book: ", title);
+    cout << "\nWhat is the title of the book you would like to look up? ";
+    string title; 
+    cin.ignore();
+    getline(cin, title);
 
-    int index = findBook(title);
-    if(index < 0)
-    {
-        cout << "\nBook Not Found\n";
-        return;
+    for(int i = 0; i < SIZE; i++) {
+        if(bookTitle[i] == title) {
+            bookInfo(isbn[i], bookTitle[i], author[i], publisher[i], dateAdded[i], qtyOnHand[i], wholesale[i], retail[i]);
+            break;
+        }
     }
-
-    bookInfo(isbn[index], bookTitle[index], author[index], publisher[index], dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
+    cout << "\nBook Not Found\n";
 }
 
 void addBook()
 {
-    cout << "\nYou selected Add a Book\n";
-
-    int index = -1;
-    for(int i = 0; i < SIZE; i++)
+    cout << "You've selected 'Add Book.'";
+    cout << endl;
+    bool flag = false;
+    int index = 0;
+    for(index = 0; index < SIZE; index++)
     {
-        if(bookTitle[i].empty())
+        if(bookTitle[index].empty())
         {
-            index = i;
+            flag = true;
             break;
         }
     }
+    if(flag){
+        string titleInput;
+        string isbnInput;
+        string authorInput;
+        string publisherInput;
+        string dateAddedInput;
+        int qtyOnHandInput;
+        double wholesaleInput;
+        double retailInput;
+        
+        cout << "Enter your information for the new book:\n";
+        cout << "Title: ";
+        cin.ignore();
+        getline(cin, titleInput);
+        cout << "ISBN: ";
+        getline(cin, isbnInput);
+        cout << "Author: ";
+        getline(cin, authorInput);
+        cout << "Publisher: ";
+        getline(cin, publisherInput);
+        cout << "Date Added (mm/dd/yyyy): ";
+        getline(cin, dateAddedInput);
+        cout << "Quantity on Hand: ";
+        cin >> qtyOnHandInput;
+        cout << "Wholesale Cost: ";
+        cin >> wholesaleInput;
+        cout << "Retail Price: ";
+        cin >> retailInput;
+        bookTitle[index] = titleInput;
+        isbn[index] = isbnInput;
+        author[index] = authorInput;
+        publisher[index] = publisherInput;
+        dateAdded[index] = dateAddedInput;
+        qtyOnHand[index] = qtyOnHandInput;
+        wholesale[index] = wholesaleInput;
+        retail[index] = retailInput;
 
-    if(index < 0)
-    {
-        cout << "\nThe inventory is full.\n";
-        return;
+        bookInfo(titleInput, isbnInput, authorInput, publisherInput, dateAddedInput, qtyOnHandInput, wholesaleInput, retailInput);
+        cout << endl;
     }
-
-    readText("\nEnter the Title: ", bookTitle[index]);
-    readText("\nEnter the ISBN: ", isbn[index]);
-    readText("\nEnter the Author: ", author[index]);
-    readText("\nEnter the Publisher: ", publisher[index]);
-    readText("\nEnter the Date Added: ", dateAdded[index]);
-
-    cout << "\nEnter the Quantity of the Book: ";
-    while(!(cin >> qtyOnHand[index]) || qtyOnHand[index] < 0)
-    {
-        clearInput();
-        cout << "Enter the Quantity of the Book: ";
+    else{
+        cout << "Sorry, our inventory is full at this time!" << endl;
     }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    cout << "\nEnter the Wholesale Cost: ";
-    while(!(cin >> wholesale[index]) || wholesale[index] < 0)
-    {
-        clearInput();
-        cout << "Enter the Wholesale Cost: ";
-    }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    cout << "\nEnter the Retail Price: ";
-    while(!(cin >> retail[index]) || retail[index] < 0)
-    {
-        clearInput();
-        cout << "Enter the Retail Price: ";
-    }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
 void editBook()
 {
     string title;
-    cout << "\nYou selected Edit a Book's Record\n";
-    readText("\nEnter the Title of the Book: ", title);
+    cout << "\nWhat is the title of the book you would like to edit? ";
+    cin.ignore();
+    getline(cin, title);
 
-    int index = findBook(title);
-    if(index < 0)
-    {
-        cout << "\nBook Not Found\n";
+    int index = -1;
+    for (int i = 0; i < SIZE; i++) {
+        if (bookTitle[i] == title) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        cout << "This book is not in our inventory." << endl;
         return;
     }
 
-    bookInfo(isbn[index], bookTitle[index], author[index], publisher[index], dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
+    bookInfo(isbn[index], bookTitle[index], author[index], publisher[index],
+             dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
 
-    int field = 0;
-    do
-    {
-        cout << "\n1. Edit ISBN\n";
-        cout << "2. Edit Title\n";
-        cout << "3. Edit Author\n";
-        cout << "4. Edit Publisher\n";
-        cout << "5. Edit Date\n";
-        cout << "6. Edit Quantity\n";
-        cout << "7. Edit Wholesale Cost\n";
-        cout << "8. Edit Retail Price\n";
-        cout << "\nEnter Your Choice: ";
-
-        if(!(cin >> field) || field < 1 || field > 8)
-        {
-            clearInput();
-            cout << "\nPlease enter a number in the range 1 - 8\n";
+    int choice = 0;
+    do {
+        cout << "\nWhich field would you like to edit?\n";
+        cout << "1. Title\n";
+        cout << "2. ISBN\n";
+        cout << "3. Author\n";
+        cout << "4. Publisher\n";
+        cout << "5. Date Added\n";
+        cout << "6. Quantity on Hand\n";
+        cout << "7. Wholesale Cost\n";
+        cout << "8. Retail Price\n";
+        cout << "9. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        while(choice < 1 || choice > 9) {
+            cout << "Please enter a number in the range 1 - 9: ";
+            cin >> choice;
         }
-    } while(field < 1 || field > 8 || cin.fail());
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    switch(field)
-    {
-        case 1:
-            readText("\nEnter the new ISBN: ", isbn[index]);
-            break;
-        case 2:
-            readText("\nEnter the new Title: ", bookTitle[index]);
-            break;
-        case 3:
-            readText("\nEnter the new Author: ", author[index]);
-            break;
-        case 4:
-            readText("\nEnter the new Publisher: ", publisher[index]);
-            break;
-        case 5:
-            readText("\nEnter the new Date: ", dateAdded[index]);
-            break;
-        case 6:
-            cout << "\nEnter the new Quantity: ";
-            while(!(cin >> qtyOnHand[index]) || qtyOnHand[index] < 0)
-            {
-                clearInput();
-                cout << "Enter the new Quantity: ";
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            break;
-        case 7:
-            cout << "\nEnter the new Wholesale Cost: ";
-            while(!(cin >> wholesale[index]) || wholesale[index] < 0)
-            {
-                clearInput();
-                cout << "Enter the new Wholesale Cost: ";
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            break;
-        case 8:
-            cout << "\nEnter the new Retail Price: ";
-            while(!(cin >> retail[index]) || retail[index] < 0)
-            {
-                clearInput();
-                cout << "Enter the new Retail Price: ";
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            break;
+        switch(choice) {
+            case 1:
+                cout << "Enter new title: ";
+                cin.ignore();
+                getline(cin, bookTitle[index]);
+                break;
+            case 2:
+                cout << "Enter new ISBN: ";
+                cin.ignore();
+                getline(cin, isbn[index]);
+                break;
+            case 3:
+                cout << "Enter new author: ";
+                cin.ignore();
+                getline(cin, author[index]);
+                break;
+            case 4:
+                cout << "Enter new publisher: ";
+                cin.ignore();
+                getline(cin, publisher[index]);
+                break;
+            case 5:
+                cout << "Enter new date added: ";
+                cin.ignore();
+                getline(cin, dateAdded[index]);
+                break;
+            case 6:
+                cout << "Enter new quantity on hand: ";
+                cin >> qtyOnHand[index];
+                break;
+            case 7:
+                cout << "Enter new wholesale cost: ";
+                cin >> wholesale[index];
+                break;
+            case 8:
+                cout << "Enter new retail price: ";
+                cin >> retail[index];
+                break;
+            case 9:
+                break;
+            default:
+                cout << "Please enter a number in the range 1 - 9.\n";
+        }
     }
+    while(choice != 9);
 }
 
 void deleteBook()
 {
     string title;
     cout << "\nYou selected Delete a Book\n";
-    readText("\nEnter the Title of the Book: ", title);
-
-    int index = findBook(title);
-    if(index < 0)
-    {
-        cout << "\nBook Not Found\n";
-        return;
+    cin.ignore();
+    getline(cin, title);
+    int index = -1;
+    for (int i = 0; i < SIZE; i++) {
+        if (bookTitle[i] == title) {
+            index = i;
+            break;
+        }
     }
+    if(index == -1) {
+        cout << "This book is not in our inventory." << endl;
+        
+    }
+    else {
 
     bookInfo(isbn[index], bookTitle[index], author[index], publisher[index], dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
 
     char answer;
     cout << "\nDelete this book? (Y/N): ";
     cin >> answer;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.ignore();
 
     if(answer == 'Y' || answer == 'y')
     {
-        bookTitle[index].clear();
-        isbn[index].clear();
-        author[index].clear();
-        publisher[index].clear();
-        dateAdded[index].clear();
+        bookTitle[index] = "";
+        isbn[index] = "";
+        author[index] = "";
+        publisher[index] = "";
+        dateAdded[index] = "";
         qtyOnHand[index] = 0;
         wholesale[index] = 0.0;
         retail[index] = 0.0;
         cout << "\nBook Deleted\n";
     }
+}
 }
