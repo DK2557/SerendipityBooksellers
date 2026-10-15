@@ -34,12 +34,12 @@ void invMenu()
         cout << "5. Return to the Main Menu\n";
         cout << "\nEnter Your Choice: ";
 
-        if(!(cin >> menuChoice) || menuChoice < 1 || menuChoice > 5)
+        if(menuChoice < 1 || menuChoice > 5)
         {
             
             cout << "\nPlease enter a number in the range 1 - 5\n";
         }
-    } while(menuChoice < 1 || menuChoice > 5 || cin.fail());
+    } while(menuChoice < 1 || menuChoice > 5);
 
     switch(menuChoice)
     {
@@ -81,7 +81,6 @@ void lookUpBook()
 void addBook()
 {
     cout << "You've selected 'Add Book.'";
-    cout << endl;
     bool flag = false;
     int index = 0;
     for(index = 0; index < SIZE; index++)
@@ -157,8 +156,7 @@ void editBook()
         return;
     }
 
-    bookInfo(isbn[index], bookTitle[index], author[index], publisher[index],
-             dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
+    bookInfo(isbn[index], bookTitle[index], author[index], publisher[index], dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
 
     int choice = 0;
     do {
@@ -174,6 +172,7 @@ void editBook()
         cout << "9. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
+
         while(choice < 1 || choice > 9) {
             cout << "Please enter a number in the range 1 - 9: ";
             cin >> choice;
@@ -247,12 +246,12 @@ void deleteBook()
 
     bookInfo(isbn[index], bookTitle[index], author[index], publisher[index], dateAdded[index], qtyOnHand[index], wholesale[index], retail[index]);
 
-    char answer;
+    string answer;
     cout << "\nDelete this book? (Y/N): ";
     cin >> answer;
     cin.ignore();
 
-    if(answer == 'Y' || answer == 'y')
+    if(answer == "Y" || answer == "y")
     {
         bookTitle[index] = "";
         isbn[index] = "";
