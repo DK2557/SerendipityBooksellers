@@ -1,6 +1,7 @@
 #include "bookinfo.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 void bookInfo(string isbn, string title, string author, string publisher, string date, int qty, double wholesale, double retail)
@@ -13,6 +14,7 @@ void bookInfo(string isbn, string title, string author, string publisher, string
     cout << "Publisher: " << publisher << "\n";
     cout << "Date Added: " << date << "\n";
     cout << "Quantity-On-Hand: " << qty << "\n";
+    cout << fixed << setprecision(2);
     cout << "Wholesale Cost: " << wholesale << "\n";
     cout << "Retail Price: " << retail << "\n";
 }

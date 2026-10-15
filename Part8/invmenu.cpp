@@ -33,6 +33,7 @@ void invMenu()
         cout << "4. Delete a Book\n";
         cout << "5. Return to the Main Menu\n";
         cout << "\nEnter Your Choice: ";
+        cin >> menuChoice; 
 
         if(menuChoice < 1 || menuChoice > 5)
         {
@@ -69,13 +70,18 @@ void lookUpBook()
     cin.ignore();
     getline(cin, title);
 
+    bool found = false;
+
     for(int i = 0; i < SIZE; i++) {
         if(bookTitle[i] == title) {
             bookInfo(isbn[i], bookTitle[i], author[i], publisher[i], dateAdded[i], qtyOnHand[i], wholesale[i], retail[i]);
+            found = true;
             break;
         }
     }
-    cout << "\nBook Not Found\n";
+    if (!found) {
+        cout << "\nBook Not Found\n";
+    }
 }
 
 void addBook()
@@ -111,7 +117,7 @@ void addBook()
         getline(cin, authorInput);
         cout << "Publisher: ";
         getline(cin, publisherInput);
-        cout << "Date Added (mm/dd/yyyy): ";
+        cout << "Date Added (MM-DD-YYYY): ";
         getline(cin, dateAddedInput);
         cout << "Quantity on Hand: ";
         cin >> qtyOnHandInput;
@@ -128,7 +134,7 @@ void addBook()
         wholesale[index] = wholesaleInput;
         retail[index] = retailInput;
 
-        bookInfo(titleInput, isbnInput, authorInput, publisherInput, dateAddedInput, qtyOnHandInput, wholesaleInput, retailInput);
+        bookInfo(isbnInput, titleInput, authorInput, publisherInput, dateAddedInput, qtyOnHandInput, wholesaleInput, retailInput);
         cout << endl;
     }
     else{
@@ -229,6 +235,7 @@ void deleteBook()
 {
     string title;
     cout << "\nYou selected Delete a Book\n";
+    cout << "Enter the title of the book you would like to delete: ";
     cin.ignore();
     getline(cin, title);
     int index = -1;
